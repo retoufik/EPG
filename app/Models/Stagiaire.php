@@ -9,6 +9,10 @@ class Stagiaire extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $casts = [
+        'debut' => 'datetime',
+        'fin' => 'datetime'
+    ];
     public function documents()
     {
         return $this->hasMany(Document::class);
