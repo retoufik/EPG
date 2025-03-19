@@ -12,7 +12,6 @@ Route::get('/', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Protect other routes with auth middleware
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         return view('layout.app');
