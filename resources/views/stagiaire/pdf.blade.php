@@ -1,9 +1,12 @@
+@php
+    use Endroid\QrCode\QrCode;
+    use Endroid\QrCode\Writer\PngWriter;
+@endphp
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-        /* Add font-face for PDF rendering */
         @font-face {
             font-family: 'DejaVu Sans';
             font-style: normal;
@@ -14,58 +17,82 @@
         body {
             font-family: 'DejaVu Sans', sans-serif;
             line-height: 1.6;
-        }
-        
-        .header {
+            margin: 2cm;
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 20px;
+        }
+
+        .certificate-border {
+            border: 3px solid #000;
+            padding: 2cm;
+            min-height: 21cm;
+        }
+
+        .signature-section {
+            margin-top: 3cm;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .qrcode {
+            margin-top: 1.5cm;
+            text-align: center;
         }
         
-        .section {
-            margin-bottom: 25px;
-        }
-        
-        .label {
-            font-weight: bold;
-            color: #1e40af;
+        .qrcode img {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Fiche Stagiaire - {{ $stagiaire->prenom }} {{ $stagiaire->nom }}</h1>
-        <p>Généré le {{ now()->format('d/m/Y H:i') }}</p>
-    </div>
+    <div class="certificate-border">
+        <h1>CERTIFICAT DE RECONNAISSANCE</h1>
+        
+        <div style="margin: 2cm 0;">
+            <p>Ce certificat est remis à</p>
+            <h2>{{ $stagiaire->prenom }} {{ $stagiaire->nom }}</h2>
+            <p>pour ses contributions au séminaire du film étranger présenté par le Cercle cinématographique de Condorcet.</p>
+        </div>
 
-    <div class="section">
-        <h2>Informations de base</h2>
-        <p><span class="label">Email:</span> {{ $stagiaire->email }}</p>
-        <p><span class="label">Téléphone:</span> {{ $stagiaire->tel }}</p>
-        <p><span class="label">Période de stage:</span> 
-            {{ $frenchDate($stagiaire->debut) }} - {{ $frenchDate($stagiaire->fin) }}
-        </p>
-    </div>
+        <div class="signature-section">
+            <div>
+                <p>_________________________</p>
+                <p>CLAUDINE ALLARD<br>Chèffe de projet</p>
+            </div>
+            
+            <div>
+                <p>_________________________</p>
+                <p>LILIANE DUMONT<br>Présidente actuelle</p>
+            </div>
+        </div>
 
-    @if($stagiaire->details)
-    <div class="section">
-        <h2>Détails supplémentaires</h2>
-        <p>{{ $stagiaire->details }}</p>
+        <div class="qrcode">
+            @php
+                try {
+                    if (!extension_loaded('gd')) {
+                        throw new Exception('Extension GD non installée');
+                    }
+                    $qrCode = new QrCode(route('stagiaire.pdf', $stagiaire->id));
+                    $writer = new PngWriter();
+                    $result = $writer->write($qrCode);
+                    $dataUri = $result->getDataUri();
+                    $generateSuccess = true;
+                    $error = null;
+                } catch (\Exception $e) {
+                    $generateSuccess = false;
+                    $error = $e->getMessage();
+                }
+            @endphp
+            
+            @if($generateSuccess)
+                <img src="{{ $dataUri }}" alt="QR Code de vérification">
+                <p>Scannez ce QR Code pour vérifier l'authenticité</p>
+            @else
+                <p style="color: red;">QR Code non disponible - Erreur: {{ $error }}</p>
+            @endif
+        </div>
     </div>
-    @endif
-
-    @if($stagiaire->documents->count() > 0)
-    <div class="section">
-        <h2>Documents associés</h2>
-        <ul>
-            @foreach($stagiaire->documents as $document)
-            <li>
-                {{ $document->document_name }} ({{ $frenchDate($document->created_at) }})
-            </li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+    <button onclick="window.print()">Télécharger le certificat</button>
 </body>
 </html>

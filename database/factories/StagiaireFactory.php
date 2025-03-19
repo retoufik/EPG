@@ -19,6 +19,8 @@ class StagiaireFactory extends Factory
         return [
            'prenom' => $this->faker->firstName(),
            'nom' => $this->faker->lastName(),
+           'CIN' => $this->faker->unique()->word(),
+           'genre' => $this->faker->inRandomOrder(['homme','femme']),
            'email' => $this->faker->unique()->safeEmail(),
            'tel' => $this->faker->phoneNumber(),
            'debut' => $this->faker->date(),

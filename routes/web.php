@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('stagiaire', StagiaireController::class);
 Route::post('/stagiaire/{stagiaire}/documents', [StagiaireController::class, 'storeDocument'])
     ->name('stagiaire.documents.store');
-Route::get('/stagiaire/{stagiaire}/pdf', [StagiaireController::class, 'generatePdf'])
+Route::get('/stagiaire/{id}', [StagiaireController::class, 'generatePdf'])
     ->name('stagiaire.pdf');
 Route::resource('documents', DocumentController::class)->only(['destroy']);
 Route::get('/stagiaire/{stagiaire}/print', [StagiaireController::class, 'print'])->name('stagiaire.print');

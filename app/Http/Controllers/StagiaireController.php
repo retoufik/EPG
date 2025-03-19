@@ -28,7 +28,6 @@ class StagiaireController extends Controller
 
         $stag = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        // Set error message if no results found
         if ($search && $stag->isEmpty()) {
             $error = "Aucun stagiaire trouvé pour votre recherche : '{$search}'";
         }
@@ -54,7 +53,6 @@ class StagiaireController extends Controller
             "path" => "required|file|max:2048",
         ]);
 
-        // Handle file upload
         if ($request->hasFile('path')) {
             $path = $request->file('path')->store('stagiaires', 'public');
             $validated['path'] = $path;
@@ -67,7 +65,7 @@ class StagiaireController extends Controller
     public function show(Stagiaire $stagiaire)
     {
         $stagiaire->load('documents');
-        return view('stagiaire.show', compact('stagiaire'));
+        return view('stagiaire.pdf', compact('stagiaire'));
     }
 
     public function edit(Stagiaire $stagiaire)
@@ -88,13 +86,11 @@ class StagiaireController extends Controller
             "path" => "nullable|file|max:2048",
         ]);
 
-        // Handle file update
         if ($request->hasFile('path')) {
-            // Delete old file
             if ($stagiaire->path) {
                 Storage::disk('public')->delete($stagiaire->path);
             }
-            $path = $request->file('path')->store('stagiaires', 'public');
+            $path = $request->file('path')->store('stagiaires', 'local');
             $validated['path'] = $path;
         }
 
@@ -104,9 +100,8 @@ class StagiaireController extends Controller
 
     public function destroy(Stagiaire $stagiaire)
     {
-        // Delete associated files
         if ($stagiaire->path) {
-            Storage::disk('public')->delete($stagiaire->path);
+            Storage::disk('local')->delete($stagiaire->path);
         }
         $stagiaire->documents()->delete();
         $stagiaire->delete();
@@ -120,7 +115,7 @@ class StagiaireController extends Controller
             "document" => "required|file|max:2048",
         ]);
 
-        $path = $request->file('document')->store('documents', 'public');
+        $path = $request->file('document')->store('documents', 'local');
         
         $stagiaire->documents()->create([
             'document_name' => $validated['document_name'],
@@ -132,24 +127,11 @@ class StagiaireController extends Controller
 
     public function generatePdf(Stagiaire $stagiaire)
     {
-        try {
-            // Load the PDF view with necessary data
-            $pdf = PDF::loadView('stagiaire.pdf', [
-                'stagiaire' => $stagiaire,
-                'frenchDate' => function ($date) {
-                    return \Carbon\Carbon::parse($date)
-                        ->locale('fr_FR')
-                        ->translatedFormat('l j F Y');
-                }
-            ]);
-    
-            // Set PDF options
-            return $pdf->download("stagiaire-{$stagiaire->id}.pdf");
-    
-        } catch (\Exception $e) {
-            // Log the error and redirect back
-            Log::error('PDF Generation Error: ' . $e->getMessage());
-            return back()->with('error', 'Erreur lors de la génération du PDF');
-        }
+        $stagiaire = Stagiaire::findOrFail($stagiaire->id);
+        
+        $pdf = PDF::loadView('attestation', compact('stagiaire'))
+                 ->setPaper('A4', 'portrait');
+
+        return $pdf->download("attestation-{$stagiaire->id}.pdf");
     }
 }

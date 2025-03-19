@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignId('stagiaire_id')->constrained('stagiaires')->onDelete('cascade');
             $table->string('document_name');
             $table->string('file_path');
+            $table->foreignId('type_document_id')->constrained('type_documents')->onDelete('cascade');
             $table->timestamps();
         });
     }

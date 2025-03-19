@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id(); 
             $table->string('prenom');
             $table->string('nom');
+            $table->string('CIN')->unique();
+            $table->string('genre')->nullable();
             $table->string('email')->unique();
             $table->string('tel')->nullable();
             $table->date('debut');
@@ -24,6 +26,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('interns');
+        Schema::dropIfExists('stagiaires');
     }
 };
