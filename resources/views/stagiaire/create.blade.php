@@ -13,6 +13,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Personal Information -->
                     <div class="space-y-4">
+                    <div>
+                            <label for="CIN" class="block text-sm font-medium text-gray-700">Carte d'identitie *</label>
+                            <input type="text" name="CIN" id="CIN" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+                                   value="{{ old('CIN') }}" required>
+                            @error('CIN')
+                                <p class="mt-1 text-sm text-red-600">{{ $errors->first('cin') }}</p>
+                            @enderror
+                        </div>    
+
                         <div>
                             <label for="nom" class="block text-sm font-medium text-gray-700">Nom *</label>
                             <input type="text" name="nom" id="nom" 
@@ -52,10 +62,50 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $errors->first('tel') }}</p>
                             @enderror
                         </div>
+
+                        
+                        <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Genre *</label>
+                        <div class="flex space-x-4">
+                            <div class="flex items-center">
+                                <input type="radio" 
+                                    name="genre" 
+                                    id="genre_homme" 
+                                    value="Homme"
+                                    class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300"
+                                    {{ old('genre') == 'Homme' ? 'checked' : '' }}
+                                    required>
+                                <label for="genre_homme" class="ml-2 text-sm text-gray-700">Homme</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" 
+                                    name="genre" 
+                                    id="genre_femme" 
+                                    value="Femme"
+                                    class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300"
+                                    {{ old('genre') == 'Femme' ? 'checked' : '' }}
+                                    required>
+                                <label for="genre_femme" class="ml-2 text-sm text-gray-700">Femme</label>
+                            </div>
+                        </div>
+                        @error('genre')
+                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('genre') }}</p>
+                        @enderror
+                    </div>
                     </div>
 
                     <!-- Internship Information -->
                     <div class="space-y-4">
+                        <div>
+                            <label for="date_naissance" class="block text-sm font-medium text-gray-700">Date de Naissance *</label>
+                            <input type="date" name="date_naissance" id="date_naissance" 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+                                   value="{{ old('date_naissance') }}" required>
+                            @error('date_naissance')
+                                <p class="mt-1 text-sm text-red-600">{{ $errors->first('date_nassance') }}</p>
+                            @enderror
+                        </div>
+
                         <div>
                             <label for="debut" class="block text-sm font-medium text-gray-700">Date de début *</label>
                             <input type="date" name="debut" id="debut" 

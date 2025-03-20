@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('fin');
             $table->text('details')->nullable();
             $table->string('path')->nullable();
+            $table->date('date_naissance');
             $table->timestamps();
         });
     }
