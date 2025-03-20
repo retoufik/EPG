@@ -13,9 +13,11 @@
             <!-- School Information Section -->
             <div class="hidden md:block w-1/2 bg-gradient-to-b from-blue-800 to-orange-600 p-12 text-white">
                 <div class="max-w-md mx-auto">
-                    <img src="{{ asset('images/logo-epgcf.png') }}" alt="EPGCF Logo" class="h-24 mb-8 mx-auto">
-                    <h2 class="text-3xl font-bold mb-6">École Polytechnique des Génies Competence Center Fès</h2>
-                    
+                <div class="flex items-center space-x-4">
+                    <img src="{{ asset('logo.png') }}" alt="EPGCF Logo" class="h-24 flex-shrink-0">
+                    <h1 class="text-xl font-bold"><br>École Polytechnique des Génies Competence Center Fès</h1>
+                </div>
+                <br><br>
                     <div class="space-y-6">
                         <div class="flex items-center space-x-4">
                             <i class="fas fa-graduation-cap text-2xl"></i>

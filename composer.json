@@ -12,7 +12,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "milon/barcode": "^11.0"
+        "milon/barcode": "^11.0",
+        "nesbot/carbon": "^2.73"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

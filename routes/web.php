@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         return view('layout.app');
     })->name('home');
+    //kibou is here
     
     Route::resource('stagiaire', StagiaireController::class);
 });
