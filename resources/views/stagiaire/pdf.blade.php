@@ -32,16 +32,14 @@
         <div class="flex justify-between items-center mb-8">
             <img src="{{asset('logo.png')}}" alt="Logo" class="w-32 h-32">
             <div class="text-center">
-                <h1 class="text-blue-900 font-bold text-xl uppercase">École Polytechnique de Génie de Compétence</h1>
-                <h2 class="text-orange-600 font-semibold text-lg">Fès, Maroc</h2>
+                <h1 class="text-blue-900 font-bold text-xl uppercase">École Polytechnique des Génies</h1>
             </div>
-            <img src="{{asset('logo.png')}}" alt="Logo" class="w-32 h-32">
         </div>
 
-        <h1 class="text-3xl font-bold text-blue-900 mb-8 uppercase">Attestation de Stage</h1>
+        <h1 class="text-3xl font-bold text-blue-900 mb-8 uppercase text-center">Attestation de Stage</h1>
 
         <div class="bg-blue-50 p-6 rounded-lg mb-8 text-left">
-            <p class="mb-4">Je soussigné(e), Directeur de l'École Polytechnique de Génie de Compétence de Fès, certifie que :</p>
+            <p class="mb-4">Je soussigné(e),le Directeur de l'École Polytechnique des Génies, certifie que :</p>
             
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
@@ -49,7 +47,7 @@
                     <p class="text-blue-900">{{ $stagiaire->prenom }} {{ $stagiaire->nom }}</p>
                 </div>
                 <div>
-                    <p class="font-semibold">CIN:</p>
+                    <p class="font-semibold">Carte d'identité:</p>
                     <p class="text-blue-900">{{ $stagiaire->CIN }}</p>
                 </div>
                 <div>
@@ -75,7 +73,7 @@
             </div>
             <div class="text-center">
                 <p class="mb-8 text-blue-900">Le Directeur</p>
-                <p class="border-t-2 border-blue-900 pt-2 w-48 mx-auto font-bold">LAZRAK Alae Din </p>
+                <p class="border-t-2 border-blue-900 pt-2 w-48 mx-auto font-bold">ALAE EDDINE LAZRAK </p>
             </div>
         </div>
 
