@@ -12,12 +12,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
+    @php
+        $fontPath = storage_path('fonts/DejaVuSans.ttf');
+    @endphp
     <style>
         @font-face {
             font-family: 'DejaVu Sans';
             font-style: normal;
             font-weight: normal;
-            src: url({{ storage_path('fonts/DejaVuSans.ttf') }}) format('truetype');
+            src: url('{{ $fontPath }}') format('truetype');
         }
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -27,12 +30,12 @@
 <body class="bg-white">
     <div class="min-h-[29.7cm] max-w-4xl mx-auto p-8 border-[3px] border-blue-900">
         <div class="flex justify-between items-center mb-8">
-            <img src="/path/to/ecole-polytechnique-logo.png" alt="Logo" class="w-32 h-32">
+            <img src="{{asset('logo.png')}}" alt="Logo" class="w-32 h-32">
             <div class="text-center">
                 <h1 class="text-blue-900 font-bold text-xl uppercase">École Polytechnique de Génie de Compétence</h1>
                 <h2 class="text-orange-600 font-semibold text-lg">Fès, Maroc</h2>
             </div>
-            <img src="/path/to/fes-logo.png" alt="Logo" class="w-32 h-32">
+            <img src="{{asset('logo.png')}}" alt="Logo" class="w-32 h-32">
         </div>
 
         <h1 class="text-3xl font-bold text-blue-900 mb-8 uppercase">Attestation de Stage</h1>
@@ -72,7 +75,7 @@
             </div>
             <div class="text-center">
                 <p class="mb-8 text-blue-900">Le Directeur</p>
-                <p class="border-t-2 border-blue-900 pt-2 w-48 mx-auto font-bold">[Nom du Directeur]</p>
+                <p class="border-t-2 border-blue-900 pt-2 w-48 mx-auto font-bold">LAZRAK Alae Din </p>
             </div>
         </div>
 
@@ -114,6 +117,9 @@
             </button>
             <p class="text-sm text-orange-600 mt-2">Le téléchargement sera disponible à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}</p>
         @endif
+    </div>
+    <div>
+        <a href="{{ route('stagiaire.pdf', $stagiaire->id) }}" class="text-blue-900">Télécharger l'attestation</a>
     </div>
 </body>
 </html>
