@@ -10,7 +10,7 @@ class Document extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public function stagiaires()
+    public function stagiaire()
     {
         return $this->belongsTo(Stagiaire::class);
     }
