@@ -108,42 +108,45 @@
                     </div>
                 </div>
 
-
-                <div class="col-span-full flex justify-center mb-6">
-                    <div class="w-full md:w-1/2">
-                        <label for="tel" class="block text-sm font-medium text-blue-700 mb-2">Téléphone</label>
+                
+                <div>
+                    <label for="tel" class="block text-sm font-medium text-blue-700 mb-2">Téléphone</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-phone text-gray-400"></i>
+                        </div>
                         <input type="text" id="tel" name="tel" 
                             value="{{ old('tel', $stagiaire->tel) }}"
-                            class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                            class="w-full pl-10 p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                             required>
                     </div>
+                    @error('tel')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <div>
+                <div>
                     <label for="type_stage" class="block text-sm font-medium text-blue-700 mb-2">Type de Stage</label>
-                    <select id="type_stage" name="type_stage" 
-                        class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                        required>
-                        <option value="">Sélectionnez un type de stage</option>
-                        <option value="PFE" {{ old('type_stage', $stagiaire->type_stage) == 'PFE' ? 'selected' : '' }}>
-                            Stage PFE
-                        </option>
-                        <option value="PFA" {{ old('type_stage', $stagiaire->type_stage) == 'PFA' ? 'selected' : '' }}>
-                            Stage PFA
-                        </option>
-                        <option value="Observation" {{ old('type_stage', $stagiaire->type_stage) == 'Observation' ? 'selected' : '' }}>
-                            Stage d'Observation
-                        </option>
-                        <option value="Technique" {{ old('type_stage', $stagiaire->type_stage) == 'Technique' ? 'selected' : '' }}>
-                            Stage Technique
-                        </option>
-                        <option value="Professionnel" {{ old('type_stage', $stagiaire->type_stage) == 'Professionnel' ? 'selected' : '' }}>
-                            Stage Professionnel
-                        </option>
-                    </select>
+                    <div class="relative">
+                        <select id="type_stage" name="type_stage" 
+                            class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none"
+                            required>
+                            <option value="Autre" {{ old('type_stage', $stagiaire->type_stage) == 'Autre' ? 'selected' : '' }}>Autre</option>
+                            <option value="PFE" {{ old('type_stage', $stagiaire->type_stage) == 'PFE' ? 'selected' : '' }}>Stage PFE</option>
+                            <option value="PFA" {{ old('type_stage', $stagiaire->type_stage) == 'PFA' ? 'selected' : '' }}>Stage PFA</option>
+                            <option value="Observation" {{ old('type_stage', $stagiaire->type_stage) == 'Observation' ? 'selected' : '' }}>Stage d'Observation</option>
+                            <option value="Technique" {{ old('type_stage', $stagiaire->type_stage) == 'Technique' ? 'selected' : '' }}>Stage Technique</option>
+                            <option value="Professionnel" {{ old('type_stage', $stagiaire->type_stage) == 'Professionnel' ? 'selected' : '' }}>Stage Professionnel</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </div>
                     @error('type_stage')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+            
                 </div>
 
 
