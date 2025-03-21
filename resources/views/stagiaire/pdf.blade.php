@@ -44,7 +44,7 @@
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <p class="font-semibold">Nom et Prénom:</p>
-                    <p class="text-blue-900">{{ $stagiaire->prenom }} {{ $stagiaire->nom }}</p>
+                    <p class="text-blue-900">{{ $stagiaire->nom }} {{ $stagiaire->prenom }}</p>
                 </div>
                 <div>
                     <p class="font-semibold">Carte d'identité:</p>
@@ -64,19 +64,28 @@
             <p class="text-orange-600 font-semibold italic">"{{ $stagiaire->details ?? '[Sujet du projet]' }}"</p>
         </div>
 
-        <p class="mb-8 text-lg">Par la présente, nous attestons que Monsieur/Madame <span class="font-bold text-blue-900">{{ $stagiaire->prenom }} {{ $stagiaire->nom }}</span> a fait preuve d'un grand professionnalisme et d'une réelle implication dans les missions qui lui ont été confiées.</p>
+        <p class="mb-8 text-lg">Par la présente, nous attestons que 
+            @if($stagiaire->genre == 'Homme')
+                Monsieur
+            @else
+                Madame
+            @endif
+            <span class="font-bold text-blue-900">{{ $stagiaire->prenom }} {{ $stagiaire->nom }}</span> 
+            a fait preuve d'un grand professionnalisme et d'une réelle implication dans les missions qui lui ont été confiées.
+        </p>
 
-        <div class="flex justify-around mt-12 mb-8">
-            <div class="text-center">
-                <p class="mb-8 text-blue-900">Le Stagiaire</p>
-                <p class="border-t-2 border-blue-900 pt-2 w-48 mx-auto">{{ $stagiaire->prenom }} {{ $stagiaire->nom }}</p>
-            </div>
-            <div class="text-center">
+        <div class="flex justify-between mt-12 mb-8">
+            <div class="text-center w-1/3">
                 <p class="mb-8 text-blue-900">Le Directeur</p>
-                <p class="border-t-2 border-blue-900 pt-2 w-48 mx-auto font-bold">ALAE EDDINE LAZRAK </p>
+                <p class="border-t-2 border-blue-900 pt-6 w-48 mx-auto font-bold">ALAE EDDINE LAZRAK</p>
+            </div>
+            
+            <div class="text-center w-1/3">
+                <p class="mb-8 text-blue-900">Signature</p>
+                <p class="border-t-2 border-blue-900 pt-6 w-48 mx-auto font-bold"></p>
             </div>
         </div>
-
+        <br><br><br>
         <div class="mt-8 text-center border-t-2 border-blue-900 pt-4">
             @php
                 try {
@@ -100,24 +109,38 @@
         </div>
     </div>
 
-    <div class="text-center mt-4">
-        @if($isButtonEnabled)
-            <button onclick="window.print()" 
-                    class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition duration-300">
-                Imprime l'Attestation
-            </button>
-            <p class="text-sm text-green-600 mt-2">Imprime est disponible depuis le {{ $endDate->locale('fr')->isoFormat('LL') }}</p>
-        @else
-            <button disabled 
-                    class="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed transition duration-300"
-                    title="Disponible à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}">
-                Télécharger l'Attestation
-            </button>
-            <p class="text-sm text-orange-600 mt-2">Le téléchargement sera disponible à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}</p>
-        @endif
-    </div>
-    <div>
-        <a href="{{ route('stagiaire.pdf', $stagiaire->id) }}" class="text-blue-900">Télécharger l'attestation</a>
-    </div>
+    <div class="text-center mt-4 space-x-4">
+    @if($isButtonEnabled)
+        <button onclick="window.print()" 
+                class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition duration-300 inline-block">
+            <i class="fas fa-print mr-2"></i>
+            Imprimer l'Attestation
+        </button>
+
+        <a href="{{ route('stagiaire.pdf', $stagiaire->id) }}" 
+           class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition duration-300 inline-block">
+            <i class="fas fa-download mr-2"></i>
+            Télécharger l'Attestation
+        </a>
+
+        <p class="text-sm text-green-600 mt-2">Documents disponibles depuis le {{ $endDate->locale('fr')->isoFormat('LL') }}</p>
+    @else
+        <button disabled 
+                class="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed transition duration-300 inline-block"
+                title="Disponible à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}">
+            <i class="fas fa-print mr-2"></i>
+            Imprimer l'Attestation
+        </button>
+
+        <button disabled 
+                class="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed transition duration-300 inline-block"
+                title="Disponible à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}">
+            <i class="fas fa-download mr-2"></i>
+            Télécharger l'Attestation
+        </button>
+
+        <p class="text-sm text-orange-600 mt-2">Les documents seront disponibles à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}</p>
+    @endif
+</div>
 </body>
 </html>

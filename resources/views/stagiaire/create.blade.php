@@ -126,14 +126,34 @@
                             @enderror
                         </div>
 
+                        
                         <div>
+                            <label class="block text-sm font-medium text-gray-700">Type de Stage *</label>
+                            <div class="mt-1">
+                                <select name="type_stage" id="type_stage" 
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
+                                        required>
+                                    <option value="Autre" {{ old('type_stage') == 'Autre' ? 'selected' : '' }}>Autre</option>
+                                    <option value="PFE" {{ old('type_stage') == 'PFE' ? 'selected' : '' }}>Stage PFE</option>
+                                    <option value="PFA" {{ old('type_stage') == 'PFA' ? 'selected' : '' }}>Stage PFA</option>
+                                    <option value="Observation" {{ old('type_stage') == 'Observation' ? 'selected' : '' }}>Stage d'Observation</option>
+                                    <option value="Professionnel" {{ old('type_stage') == 'Professionnel' ? 'selected' : '' }}>Stage Professionnel</option>
+                                    <option value="Technique" {{ old('type_stage') == 'Technique' ? 'selected' : '' }}>Stage Technique</option>
+                                </select>
+                            </div>
+                            @error('type_stage')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- <div>
                             <label for="details" class="block text-sm font-medium text-gray-700">Détails supplémentaires</label>
                             <textarea name="details" id="details" rows="3"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">{{ old('details') }}</textarea>
                             @error('details')
                                 <p class="mt-1 text-sm text-red-600">{{ $errors->first('details') }}</p>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <div>
                             <label for="path" class="block text-sm font-medium text-gray-700">Fichier joint *</label>
