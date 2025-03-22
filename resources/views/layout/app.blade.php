@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{{ asset('images.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Gestion des stagiaires</title>
@@ -16,7 +17,7 @@
                     <ul class="flex space-x-4">
                         <li>
                             <a href="{{ route('home') }}">
-                            <img src="{{ asset('images.png')}}" alt="Logo" class="h-8"></a>
+                            <img src="{{ asset('images.jpg')}}" alt="Logo" class="h-8" style="border-radius: 25px"></a>
                         </li>
                         <li>
                             <a href="{{ route('stagiaire.index') }}" 

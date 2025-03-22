@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('details')->nullable();
             $table->string('path')->nullable();
             $table->date('date_naissance');
+            $table->foreignId('type_stage_id')->constrained('type_stages');
             $table->timestamps();
         });
     }

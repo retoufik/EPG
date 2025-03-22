@@ -13,12 +13,11 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function () {
+Route::get('/home', function () {
         return view('layout.app');
     })->name('home');
-    //kibou is here
-    
-    Route::resource('stagiaire', StagiaireController::class);
+
+Route::resource('stagiaire', StagiaireController::class);
 });
 Route::resource('stagiaire', StagiaireController::class);
 Route::post('/stagiaire/{stagiaire}/documents', [StagiaireController::class, 'storeDocument'])

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Stagiaire;
 use App\Models\Document;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\TypeStage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +38,8 @@ class StagiaireController extends Controller
 
     public function create()
     {
-        return view('stagiaire.create');
+        $types = TypeStage::all();
+        return view('stagiaire.create', compact('types'));
     }
 
     public function store(Request $request)
@@ -48,6 +50,7 @@ class StagiaireController extends Controller
             "email" => "required|email|unique:stagiaires",
             "tel" => "required|string|max:20",
             'CIN' => 'required',
+            'type_stage_id' => 'required',
             'date_naissance' => 'required|date',
             'genre' => 'required',
             "debut" => "required|date",
@@ -57,7 +60,7 @@ class StagiaireController extends Controller
         ]);
 
         if ($request->hasFile('path')) {
-            $path = $request->file('path')->store('stagiaires', 'public');
+            $path = $request->file('path')->store('stagiaires', 'local');
             $validated['path'] = $path;
         }
 
@@ -73,7 +76,8 @@ class StagiaireController extends Controller
 
     public function edit(Stagiaire $stagiaire)
     {
-        return view('stagiaire.edit', compact('stagiaire'));
+        $types = TypeStage::all();
+        return view('stagiaire.edit', compact('stagiaire','types'));
     }
 
     public function update(Request $request, Stagiaire $stagiaire)
@@ -84,6 +88,7 @@ class StagiaireController extends Controller
             "email" => "required|email|unique:stagiaires,email,".$stagiaire->id,
             "tel" => "required|string|max:20",
             "CIN" => "required",
+            "type_stage_id" => "required",
             "debut" => "required|date",
             "fin" => "required|date|after:debut",
             "details" => "nullable|string",

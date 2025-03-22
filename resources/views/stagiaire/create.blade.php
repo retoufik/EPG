@@ -11,7 +11,6 @@
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Personal Information -->
                     <div class="space-y-4">
                     <div>
                             <label for="CIN" class="block text-sm font-medium text-gray-700">Carte d'identitie *</label>
@@ -94,7 +93,6 @@
                     </div>
                     </div>
 
-                    <!-- Internship Information -->
                     <div class="space-y-4">
                         <div>
                             <label for="date_naissance" class="block text-sm font-medium text-gray-700">Date de Naissance *</label>
@@ -130,30 +128,31 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Type de Stage *</label>
                             <div class="mt-1">
-                                <select name="type_stage" id="type_stage" 
+                                <select name="type_stage_id" id="type_stage" 
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500"
                                         required>
-                                    <option value="Autre" {{ old('type_stage') == 'Autre' ? 'selected' : '' }}>Autre</option>
-                                    <option value="PFE" {{ old('type_stage') == 'PFE' ? 'selected' : '' }}>Stage PFE</option>
-                                    <option value="PFA" {{ old('type_stage') == 'PFA' ? 'selected' : '' }}>Stage PFA</option>
-                                    <option value="Observation" {{ old('type_stage') == 'Observation' ? 'selected' : '' }}>Stage d'Observation</option>
-                                    <option value="Professionnel" {{ old('type_stage') == 'Professionnel' ? 'selected' : '' }}>Stage Professionnel</option>
-                                    <option value="Technique" {{ old('type_stage') == 'Technique' ? 'selected' : '' }}>Stage Technique</option>
+                                    <option value="">Choisir un type de stage</option>
+                                    @foreach($types as $type_stage)
+                                        <option value="{{ $type_stage->id }}"
+                                                {{ old('type_stage_id') == $type_stage->id ? 'selected' : '' }}>
+                                            {{ $type_stage->type }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            @error('type_stage')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @error('type_stage_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $errors->first('type_stage_id') }}</p>
                             @enderror
                         </div>
 
-                        <!-- <div>
+                       <div>
                             <label for="details" class="block text-sm font-medium text-gray-700">Détails supplémentaires</label>
                             <textarea name="details" id="details" rows="3"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">{{ old('details') }}</textarea>
                             @error('details')
                                 <p class="mt-1 text-sm text-red-600">{{ $errors->first('details') }}</p>
                             @enderror
-                        </div> -->
+                        </div>
 
                         <div>
                             <label for="path" class="block text-sm font-medium text-gray-700">Fichier joint *</label>
@@ -180,7 +179,7 @@
             </form>
         </div>
     </div>
-    @else {{-- Show unauthorized message for non-authenticated users --}}
+    @else
     <div class="bg-red-100 border border-red-400 text-red-700 p-4 rounded-lg text-center">
         <i class="fas fa-exclamation-triangle mr-2"></i>
         Vous devez être connecté pour accéder à cette page.

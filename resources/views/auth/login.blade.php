@@ -10,7 +10,6 @@
 <body class="bg-gradient-to-r from-blue-50 to-orange-50 min-h-screen">
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl w-full flex bg-white rounded-2xl shadow-xl overflow-hidden">
-            <!-- School Information Section -->
             <div class="hidden md:block w-1/2 bg-gradient-to-b from-blue-800 to-orange-600 p-12 text-white">
                 <div class="max-w-md mx-auto">
                 <div class="flex items-center space-x-4">
@@ -57,7 +56,6 @@
                 </div>
             </div>
 
-            <!-- Login Form Section -->
             <div class="w-full md:w-1/2 p-12">
                 <div class="max-w-md mx-auto">
                     <h2 class="text-3xl font-bold text-blue-800 mb-8">Connexion</h2>

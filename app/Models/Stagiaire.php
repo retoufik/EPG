@@ -17,4 +17,8 @@ class Stagiaire extends Model
     {
         return $this->hasMany(Document::class);
     }
+    public function type_stage()
+    {
+        return $this->belongsTo(TypeStage::class);
+    }
 }
