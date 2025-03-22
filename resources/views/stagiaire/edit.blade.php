@@ -13,6 +13,14 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
+                    <label for="CIN" class="block text-sm font-medium text-blue-700 mb-2">Carte d'identitie </label>
+                    <input type="text" id="CIN" name="CIN" 
+                        value="{{ old('CIN', $stagiaire->CIN) }}"
+                        class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        required>
+                </div>
+            
+                <div>
                     <label for="prenom" class="block text-sm font-medium text-blue-700 mb-2">Prénom</label>
                     <input type="text" id="prenom" name="prenom" 
                         value="{{ old('prenom', $stagiaire->prenom) }}"
@@ -35,30 +43,113 @@
                         class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                         required>
                 </div>
+
+                <div>
+                        <label class="block text-sm font-medium text-blue-700 mb-2">Genre</label>
+                    <div class="flex space-x-6">
+                        <div class="flex items-center">
+                            <input type="radio" 
+                                name="genre" 
+                                id="genre_homme" 
+                                value="Homme"
+                                {{ old('genre', $stagiaire->genre) == 'Homme' ? 'checked' : '' }}
+                                class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-blue-300"
+                                required>
+                            <label for="genre_homme" class="ml-2 text-sm text-gray-700">Homme</label>
+                        </div>
+                    <div class="flex items-center">
+                        <input type="radio" 
+                            name="genre" 
+                            id="genre_femme" 
+                            value="Femme"
+                            {{ old('genre', $stagiaire->genre) == 'Femme' ? 'checked' : '' }}
+                            class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-blue-300"
+                            required>
+                        <label for="genre_femme" class="ml-2 text-sm text-gray-700">Femme</label>
+                    </div>
+                </div>
+                @error('genre')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+                
+                
+                <div>
+                    <label for="date_naissance" class="block text-sm font-medium text-blue-700 mb-2">Date de Naissance</label>
+                    <input type="date" 
+                        id="date_naissance" 
+                        name="date_naissance" 
+                        value="{{ old('date_naissance', optional($stagiaire->date_naissance)->format('Y-m-d')) }}"
+                        max="{{ date('Y-m-d') }}"
+                        class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        required>
+                    @error('date_naissance')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+    
+        
+                <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="debut" class="block text-sm font-medium text-blue-700 mb-2">Date de début</label>
+                        <input type="date" id="debut" name="debut" 
+                            value="{{ old('debut', $stagiaire->debut ? $stagiaire->debut->format('Y-m-d') : '') }}"
+                            class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                            required>
+                    </div>
+                    
+                    <div>
+                        <label for="fin" class="block text-sm font-medium text-blue-700 mb-2">Date de fin</label>
+                        <input type="date" id="fin" name="fin" 
+                            value="{{ old('fin', $stagiaire->fin->format('Y-m-d')) }}"
+                            class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                            required>
+                    </div>
+                </div>
+
                 
                 <div>
                     <label for="tel" class="block text-sm font-medium text-blue-700 mb-2">Téléphone</label>
-                    <input type="text" id="tel" name="tel" 
-                        value="{{ old('tel', $stagiaire->tel) }}"
-                        class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                        required>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input type="text" id="tel" name="tel" 
+                            value="{{ old('tel', $stagiaire->tel) }}"
+                            class="w-full pl-10 p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                            required>
+                    </div>
+                    @error('tel')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-                
+
                 <div>
-                    <label for="debut" class="block text-sm font-medium text-blue-700 mb-2">Date de début</label>
-                    <input type="date" id="debut" name="debut" 
-                        value="{{ old('debut', $stagiaire->debut ? $stagiaire->debut->format('Y-m-d') : '') }}"
-                        class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                        required>
+                    <label for="type_stage" class="block text-sm font-medium text-blue-700 mb-2">Type de Stage</label>
+                    <div class="relative">
+                        <select id="type_stage" name="type_stage" 
+                            class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none"
+                            required>
+                            <option value="Autre" {{ old('type_stage', $stagiaire->type_stage) == 'Autre' ? 'selected' : '' }}>Autre</option>
+                            <option value="PFE" {{ old('type_stage', $stagiaire->type_stage) == 'PFE' ? 'selected' : '' }}>Stage PFE</option>
+                            <option value="PFA" {{ old('type_stage', $stagiaire->type_stage) == 'PFA' ? 'selected' : '' }}>Stage PFA</option>
+                            <option value="Observation" {{ old('type_stage', $stagiaire->type_stage) == 'Observation' ? 'selected' : '' }}>Stage d'Observation</option>
+                            <option value="Technique" {{ old('type_stage', $stagiaire->type_stage) == 'Technique' ? 'selected' : '' }}>Stage Technique</option>
+                            <option value="Professionnel" {{ old('type_stage', $stagiaire->type_stage) == 'Professionnel' ? 'selected' : '' }}>Stage Professionnel</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </div>
+                    @error('type_stage')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-                
-                <div>
-                    <label for="fin" class="block text-sm font-medium text-blue-700 mb-2">Date de fin</label>
-                    <input type="date" id="fin" name="fin" 
-                        value="{{ old('fin', $stagiaire->fin->format('Y-m-d')) }}"
-                        class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                        required>
+            
                 </div>
+
+
                 
                 <div class="col-span-full">
                     <label for="details" class="block text-sm font-medium text-blue-700 mb-2">Détails</label>
