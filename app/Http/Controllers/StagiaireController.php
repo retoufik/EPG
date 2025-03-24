@@ -97,7 +97,7 @@ class StagiaireController extends Controller
 
         if ($request->hasFile('path')) {
             if ($stagiaire->path) {
-                Storage::disk('public')->delete($stagiaire->path);
+                Storage::disk('local')->delete($stagiaire->path);
             }
             $path = $request->file('path')->store('stagiaires', 'local');
             $validated['path'] = $path;
