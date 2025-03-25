@@ -9,6 +9,8 @@ use App\Models\TypeStage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Mpdf\Mpdf;
+use Milon\Barcode\DNS2D;
 
 class StagiaireController extends Controller
 {
@@ -91,8 +93,7 @@ class StagiaireController extends Controller
             "type_stage_id" => "required",
             "debut" => "required|date",
             "fin" => "required|date|after:debut",
-            "details" => "nullable|string",
-            "path" => "nullable|file|max:2048",
+            "details" => "nullable|string"
         ]);
 
         if ($request->hasFile('path')) {
@@ -101,6 +102,14 @@ class StagiaireController extends Controller
             }
             $path = $request->file('path')->store('stagiaires', 'local');
             $validated['path'] = $path;
+        }
+        if($request->has("remove_file")){
+            Storage::disk('local')->delete($stagiaire->path);
+            $validated['path'] = null;
+        }
+        
+        if($request->has("download_file")){
+            return response()->download(storage_path("app/".$stagiaire->path));
         }
 
         $stagiaire->update($validated);
@@ -134,13 +143,34 @@ class StagiaireController extends Controller
         return back()->with("success", "Document ajouté avec succès");
     }
 
-    public function generatePdf(Stagiaire $stagiaire)
+    public function generatePdf(Stagiaire $stagiaire) 
     {
-        $stagiaire = Stagiaire::findOrFail($stagiaire->id);
-        
-        $pdf = PDF::loadView('attestation', compact('stagiaire'))
-                 ->setPaper('A4', 'portrait');
+        try {
+            // Basic mPDF setup
+            $mpdf = new \Mpdf\Mpdf([
+                'format' => 'A4',
+                'margin_left' => 20,
+                'margin_right' => 20,
+                'margin_top' => 20,
+                'margin_bottom' => 20,
+            ]);
 
-        return $pdf->download("attestation-{$stagiaire->id}.pdf");
+            // Simple QR code generation using DNS2D
+            $d = new DNS2D();
+            $qrcode = $d->getBarcodeHTML(url("/attestation/verify/{$stagiaire->id}"), 'QRCODE', 3, 3);
+
+            // Get the view content
+            $html = view('stagiaire.attestation', compact('stagiaire', 'qrcode'))->render();
+
+            // Write HTML to PDF
+            $mpdf->WriteHTML($html);
+
+            // Output PDF as download
+            return $mpdf->Output('attestation.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+
+        } catch (\Exception $e) {
+            Log::error('PDF Error: ' . $e->getMessage());
+            return back()->with('error', 'Erreur lors de la génération du PDF');
+        }
     }
 }

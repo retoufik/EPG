@@ -12,18 +12,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    @php
-        $fontPath = storage_path('fonts/DejaVuSans.ttf');
-    @endphp
     <style>
         @font-face {
             font-family: 'DejaVu Sans';
             font-style: normal;
             font-weight: normal;
-            src: url('{{ $fontPath }}') format('truetype');
+            src: url('{{ asset('fonts/DejaVuSans.ttf') }}') format('truetype');
         }
         body {
             font-family: 'DejaVu Sans', sans-serif;
+        }
+    </style>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .min-h-[29.7cm] {
+                border: none !important;
+            }
         }
     </style>
 </head>
@@ -89,7 +107,7 @@
         <div class="mt-8 text-center border-t-2 border-blue-900 pt-4">
             @php
                 try {
-                    $qrCode = new QrCode(route('stagiaire.pdf', $stagiaire->id));
+                    $qrCode = new QrCode(route('stagiaire.attestation.download', $stagiaire->id));
                     $writer = new PngWriter();
                     $result = $writer->write($qrCode);
                     $dataUri = $result->getDataUri();
@@ -109,15 +127,15 @@
         </div>
     </div>
 
-    <div class="text-center mt-4 space-x-4">
+    <div class="text-center mt-4 space-x-4 no-print">
     @if($isButtonEnabled)
-        <button onclick="window.print()" 
+        <button onclick="printAttestation()"
                 class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition duration-300 inline-block">
             <i class="fas fa-print mr-2"></i>
             Imprimer l'Attestation
         </button>
 
-        <a href="{{ route('stagiaire.pdf', $stagiaire->id) }}" 
+        <a href="{{ route('stagiaire.attestation.download', $stagiaire) }}" 
            class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition duration-300 inline-block">
             <i class="fas fa-download mr-2"></i>
             Télécharger l'Attestation
@@ -142,5 +160,32 @@
         <p class="text-sm text-orange-600 mt-2">Les documents seront disponibles à partir du {{ $endDate->locale('fr')->isoFormat('LL') }}</p>
     @endif
 </div>
+
+@push('styles')
+<style>
+    @media print {
+        .text-center.mt-4.space-x-4,
+        .header-buttons,
+        .footer {
+            display: none !important;
+        }
+        .min-h-[29.7cm] {
+            border: none !important;
+            padding: 0 !important;
+        }
+    }
+</style>
+@endpush
+
+<script>
+function printAttestation() {
+    const buttons = document.querySelector('.no-print');
+    buttons.style.display = 'none';
+    
+    window.print();
+    
+    buttons.style.display = 'block';
+}
+</script>
 </body>
 </html>

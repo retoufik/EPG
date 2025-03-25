@@ -28,7 +28,6 @@
             @method('PUT')
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- CIN Field -->
                 <div>
                     <label for="CIN" class="block text-sm font-medium text-blue-700 mb-2">
                         Carte d'identité <span class="text-red-600">*</span>
@@ -116,8 +115,7 @@
                         Date de Naissance <span class="text-red-600">*</span>
                     </label>
                     <input type="date" id="date_naissance" name="date_naissance" 
-                        value="{{ old('date_naissance', optional($stagiaire->date_naissance)->format('Y-m-d')) }}"
-                        max="{{ date('Y-m-d') }}"
+                        value="{{ old('date_naissance', $stagiaire->date_naissance ? $stagiaire->date_naissance : '') }}"
                         class="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                         required>
                     @error('date_naissance')
@@ -232,6 +230,11 @@
                                 <input type="checkbox" id="remove_file" name="remove_file" 
                                     class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-blue-300">
                                 <label for="remove_file" class="ml-2 text-sm text-gray-700">Supprimer le fichier actuel</label>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <input type="checkbox" id="download_file" name="download_file" 
+                                    class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-blue-300">
+                                <label for="download_file" class="ml-2 text-sm text-gray-700">Telecharge votre document</label>
                             </div>
                         </div>
                     @endif

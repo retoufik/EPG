@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-/.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.env.production
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
-/.idea
-/.vscode
-=======
 /vendor/
 node_modules/
 npm-debug.log
@@ -49,4 +28,6 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
->>>>>>> 24e50fc281d8f4e6cce94f53f034a665e77d6cbf
+
+/storage/temp/*
+!storage/temp/.gitkeep

@@ -13,16 +13,25 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-Route::get('/home', function () {
+    Route::get('/home', function () {
         return view('layout.app');
     })->name('home');
 
-Route::resource('stagiaire', StagiaireController::class);
+    Route::resource('stagiaire', StagiaireController::class);
+    
+    Route::get('/stagiaire/{stagiaire}/attestation/download', [StagiaireController::class, 'generatePdf'])
+        ->name('stagiaire.attestation.download');
+    Route::get('/stagiaire/{stagiaire}/attestation/print', [StagiaireController::class, 'print'])
+        ->name('stagiaire.attestation.print');
+    Route::post('/stagiaire/{stagiaire}/documents', [StagiaireController::class, 'storeDocument'])
+        ->name('stagiaire.documents.store');
+    Route::resource('documents', DocumentController::class)->only(['destroy']);
+    
+    Route::get('/stagiaire/{stagiaire}/download-attestation', [StagiaireController::class, 'generatePdf'])
+        ->name('stagiaire.attestation.download');
 });
-Route::resource('stagiaire', StagiaireController::class);
-Route::post('/stagiaire/{stagiaire}/documents', [StagiaireController::class, 'storeDocument'])
-    ->name('stagiaire.documents.store');
-Route::get('/stagiaire/{id}', [StagiaireController::class, 'generatePdf'])
-    ->name('stagiaire.pdf');
-Route::resource('documents', DocumentController::class)->only(['destroy']);
-Route::get('/stagiaire/{stagiaire}/print', [StagiaireController::class, 'print'])->name('stagiaire.print');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/attestation/download/{stagiaire}', [StagiaireController::class, 'generatePdf'])
+        ->name('stagiaire.attestation.download');
+});
