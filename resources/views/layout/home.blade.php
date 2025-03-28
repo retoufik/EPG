@@ -41,7 +41,6 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-200">
     <div class="min-h-screen">
-        <!-- Hero Section -->
         <div class="relative overflow-hidden hero-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="animate-fadeIn text-center">
@@ -55,10 +54,8 @@
             </div>
         </div>
 
-        <!-- Features Grid -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 features-grid">
-                <!-- Formation -->
                 <div class="glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInLeft">
                     <div class="text-blue-900 dark:text-blue-400 text-xl font-semibold mb-4">Formation</div>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -66,7 +63,6 @@
                     </p>
                 </div>
 
-                <!-- Recherche -->
                 <div class="glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInUp">
                     <div class="text-orange-600 dark:text-orange-400 text-xl font-semibold mb-4">Recherche</div>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -74,7 +70,6 @@
                     </p>
                 </div>
 
-                <!-- International -->
                 <div class="glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInRight">
                     <div class="text-blue-900 dark:text-blue-400 text-xl font-semibold mb-4">International</div>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -84,11 +79,9 @@
             </div>
         </div>
 
-        <!-- Navigation Cards -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 @auth
-                    <!-- Dashboard Card -->
                     <a href="{{ route('stagiaire.index') }}" 
                        class="group glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInLeft">
                         <div class="flex items-center justify-between">
@@ -149,7 +142,6 @@
             </div>
         </div>
 
-        <!-- Contact Section -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
             <h2 class="text-3xl font-bold text-blue-900 dark:text-blue-400 mb-8 animate__animated animate__fadeInUp">
                 Contactez-nous

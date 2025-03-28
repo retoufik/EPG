@@ -91,7 +91,6 @@
             color: #fca5a5;
         }
 
-        /* Responsive Navigation */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -116,12 +115,10 @@
             }
         }
 
-        /* Smooth Transitions */
         .transition-all {
             transition: all 0.3s ease-in-out;
         }
 
-        /* Glass Effect */
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);

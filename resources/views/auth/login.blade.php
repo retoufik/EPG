@@ -77,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- Login Form Section -->
             <div class="w-full md:w-1/2 p-8 md:p-12">
                 <div class="max-w-md mx-auto">
                     <div class="md:hidden mb-8 text-center">

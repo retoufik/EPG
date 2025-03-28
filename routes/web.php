@@ -41,14 +41,12 @@ Route::middleware(['auth'])->group(function () {
         return view('layout.app');
     })->name('dashboard');
 
-    // Stagiaire routes
     Route::resource('stagiaire', StagiaireController::class);
     Route::get('/stagiaire/{stagiaire}/attestation/download', [StagiaireController::class, 'generatePdf'])
         ->name('stagiaire.attestation.download');
     Route::get('/stagiaire/{stagiaire}/attestation/print', [StagiaireController::class, 'print'])
         ->name('stagiaire.attestation.print');
     
-    // Document routes
     Route::post('/stagiaire/{stagiaire}/documents', [StagiaireController::class, 'storeDocument'])
         ->name('stagiaire.documents.store');
     Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])

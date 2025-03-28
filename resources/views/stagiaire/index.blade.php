@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
 <div class="mx-auto p-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
-    @auth {{-- Only show content to authenticated users --}}
+    @auth
     <form method="GET" action="{{ route('stagiaire.index') }}" class="mb-6">
         <div class="flex flex-col sm:flex-row gap-2">
             <input type="text" name="search" placeholder="Rechercher par nom/prénom" 
@@ -35,7 +35,6 @@
         </a>
     </div>
 
-    <!-- Mobile View -->
     <div class="md:hidden space-y-4">
         @foreach ($stag as $stagiaire)
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
@@ -81,7 +80,6 @@
         @endforeach
     </div>
 
-    <!-- Desktop View -->
     <div class="hidden md:block border border-blue-200 dark:border-blue-800 rounded-lg overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
             <table class="min-w-full">

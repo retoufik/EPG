@@ -146,8 +146,7 @@ class StagiaireController extends Controller
 
     public function generatePdf(Stagiaire $stagiaire) 
     {
-        try {
-            // Create DNS2D instance
+        try {            
             $generator = new \Milon\Barcode\DNS2D();
             $qrcode = $generator->getBarcodeHTML(
                 route('stagiaire.show', $stagiaire->id),
@@ -155,20 +154,16 @@ class StagiaireController extends Controller
                 4,
                 4
             );
-
-            // Generate PDF using the PDF facade
+    
             $pdf = Pdf::loadView('stagiaire.attestation', [
                 'stagiaire' => $stagiaire,
                 'qrcode' => $qrcode
             ]);
 
-            // Set paper size and orientation
             $pdf->setPaper('A4', 'portrait');
 
-            // Generate filename
             $filename = 'attestation-' . Str::slug($stagiaire->nom . '-' . $stagiaire->prenom) . '.pdf';
             
-            // Download the PDF
             return $pdf->download($filename);
 
         } catch (\Exception $e) {

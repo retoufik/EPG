@@ -4,7 +4,6 @@
 <div class="mx-auto p-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         @auth
-        <!-- Success/Error Messages -->
         @if(session('success'))
             <div class="mb-6 p-4 bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-200 rounded-lg">
                 {{ session('success') }}
@@ -38,7 +37,6 @@
                     @enderror
                 </div>
 
-                <!-- Prénom Field -->
                 <div>
                     <label for="prenom" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Prénom <span class="text-red-600 dark:text-red-400">*</span>
@@ -52,7 +50,6 @@
                     @enderror
                 </div>
 
-                <!-- Nom Field -->
                 <div>
                     <label for="nom" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Nom <span class="text-red-600 dark:text-red-400">*</span>
@@ -66,7 +63,6 @@
                     @enderror
                 </div>
 
-                <!-- Email Field -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Email <span class="text-red-600 dark:text-red-400">*</span>
@@ -80,7 +76,6 @@
                     @enderror
                 </div>
 
-                <!-- Genre Field -->
                 <div>
                     <label class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Genre <span class="text-red-600 dark:text-red-400">*</span>
@@ -106,7 +101,6 @@
                     @enderror
                 </div>
 
-                <!-- Date de Naissance -->
                 <div>
                     <label for="date_naissance" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Date de Naissance <span class="text-red-600 dark:text-red-400">*</span>
@@ -120,7 +114,6 @@
                     @enderror
                 </div>
 
-                <!-- Date Fields -->
                 <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="debut" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
@@ -150,7 +143,6 @@
                     </div>
                 </div>
 
-                <!-- Téléphone Field -->
                 <div>
                     <label for="tel" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Téléphone <span class="text-red-600 dark:text-red-400">*</span>
@@ -171,7 +163,6 @@
                     @enderror
                 </div>
 
-                <!-- Type de Stage -->
                 <div>
                     <label for="type_stage_id" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Type de Stage <span class="text-red-600 dark:text-red-400">*</span>
@@ -196,7 +187,6 @@
                     @enderror
                 </div>
 
-                <!-- Détails Field -->
                 <div class="col-span-full">
                     <label for="details" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Détails
@@ -208,7 +198,6 @@
                     @enderror
                 </div>
 
-                <!-- File Upload -->
                 <div class="col-span-full">
                     <label for="path" class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                         Fichier joint
@@ -241,7 +230,6 @@
                 </div>
             </div>
 
-            <!-- Form Actions -->
             <div class="mt-8 flex justify-end gap-4">
                 <a href="{{ route('stagiaire.index') }}" 
                    class="bg-gray-500 dark:bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors shadow-sm hover:shadow-md">
