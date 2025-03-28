@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center mb-8 no-print">
             <h1 class="text-3xl font-bold text-orange-700">Détails du Stagiaire</h1>
             <div class="flex gap-4">
-                <a href="{{ route('stagiaire.pdf', $stagiaire) }}" 
+                <a href="{{ route('stagiaire.attestation.download', $stagiaire) }}" 
                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
                     <i class="fas fa-file-pdf mr-2"></i>Télécharger PDF
                 </a>
@@ -41,7 +41,6 @@
                         </div>
                     </div>
 
-                    <!-- Internship Details -->
                     <div class="space-y-4">
                         <div>
                             <label class="text-sm font-medium text-blue-700">Période de stage</label>
@@ -70,7 +69,6 @@
             </div>
         </div>
 
-        <!-- Documents Section -->
         <div class="bg-white rounded-lg shadow-lg p-6 no-print">
             <h2 class="text-xl font-semibold text-orange-700 mb-6">Documents Associés</h2>
 
@@ -130,7 +128,7 @@
             </div>
         </div>
     </div>
-    @else {{-- Show unauthorized message for non-authenticated users --}}
+    @else 
     <div class="bg-red-100 border border-red-400 text-red-700 p-4 rounded-lg text-center">
         <i class="fas fa-exclamation-triangle mr-2"></i>
         Vous devez être connecté pour accéder à cette page.

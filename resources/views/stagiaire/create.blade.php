@@ -5,11 +5,9 @@
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         @auth
         <div class="max-w-3xl mx-auto">
-            <!-- Form inputs with dark mode classes -->
             <form action="{{ route('stagiaire.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Update input fields with dark mode classes -->
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">

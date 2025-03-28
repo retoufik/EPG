@@ -9,6 +9,7 @@ use App\Models\TypeStage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Mpdf\Mpdf;
 use Milon\Barcode\DNS2D;
 
@@ -146,31 +147,34 @@ class StagiaireController extends Controller
     public function generatePdf(Stagiaire $stagiaire) 
     {
         try {
-            // Basic mPDF setup
-            $mpdf = new \Mpdf\Mpdf([
-                'format' => 'A4',
-                'margin_left' => 20,
-                'margin_right' => 20,
-                'margin_top' => 20,
-                'margin_bottom' => 20,
+            // Create DNS2D instance
+            $generator = new \Milon\Barcode\DNS2D();
+            $qrcode = $generator->getBarcodeHTML(
+                route('stagiaire.show', $stagiaire->id),
+                'QRCODE',
+                4,
+                4
+            );
+
+            // Generate PDF using the PDF facade
+            $pdf = Pdf::loadView('stagiaire.attestation', [
+                'stagiaire' => $stagiaire,
+                'qrcode' => $qrcode
             ]);
 
-            // Simple QR code generation using DNS2D
-            $d = new DNS2D();
-            $qrcode = $d->getBarcodeHTML(url("/attestation/verify/{$stagiaire->id}"), 'QRCODE', 3, 3);
+            // Set paper size and orientation
+            $pdf->setPaper('A4', 'portrait');
 
-            // Get the view content
-            $html = view('stagiaire.attestation', compact('stagiaire', 'qrcode'))->render();
-
-            // Write HTML to PDF
-            $mpdf->WriteHTML($html);
-
-            // Output PDF as download
-            return $mpdf->Output('attestation.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+            // Generate filename
+            $filename = 'attestation-' . Str::slug($stagiaire->nom . '-' . $stagiaire->prenom) . '.pdf';
+            
+            // Download the PDF
+            return $pdf->download($filename);
 
         } catch (\Exception $e) {
-            Log::error('PDF Error: ' . $e->getMessage());
-            return back()->with('error', 'Erreur lors de la génération du PDF');
+            Log::error('PDF Generation Error: ' . $e->getMessage());
+            Log::error($e->getTraceAsString());
+            return back()->with('error', 'Erreur lors de la génération du PDF: ' . $e->getMessage());
         }
     }
 }

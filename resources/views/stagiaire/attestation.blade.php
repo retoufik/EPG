@@ -39,6 +39,10 @@
             border-top: 2px solid #1e3a8a;
             padding-top: 20px;
         }
+        .qr-code img {
+            width: 100px;
+            height: 100px;
+        }
     </style>
 </head>
 <body>
@@ -73,7 +77,6 @@
 
     <div class="qr-code">
         {!! $qrcode !!}
-        <p style="font-size: 12px; color: #1e3a8a;">Scan to verify authenticity</p>
     </div>
 </body>
 </html>

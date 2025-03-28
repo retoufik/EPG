@@ -37,27 +37,25 @@ Route::middleware(['auth'])->group(function () {
         return view('layout.home');
     })->name('home');
 
+    Route::get('/dashboard', function () {
+        return view('layout.app');
+    })->name('dashboard');
+
+    // Stagiaire routes
     Route::resource('stagiaire', StagiaireController::class);
-    
     Route::get('/stagiaire/{stagiaire}/attestation/download', [StagiaireController::class, 'generatePdf'])
         ->name('stagiaire.attestation.download');
     Route::get('/stagiaire/{stagiaire}/attestation/print', [StagiaireController::class, 'print'])
         ->name('stagiaire.attestation.print');
+    
+    // Document routes
     Route::post('/stagiaire/{stagiaire}/documents', [StagiaireController::class, 'storeDocument'])
         ->name('stagiaire.documents.store');
-    Route::resource('documents', DocumentController::class)->only(['destroy']);
-    
-    Route::get('/stagiaire/{stagiaire}/download-attestation', [StagiaireController::class, 'generatePdf'])
-        ->name('stagiaire.attestation.download');
+    Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])
+        ->name('documents.destroy');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/attestation/download/{stagiaire}', [StagiaireController::class, 'generatePdf'])
-        ->name('stagiaire.attestation.download');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('layout.app');
-    })->name('dashboard');
-});
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/attestation/download/{stagiaire}', [StagiaireController::class, 'generatePdf'])
+//         ->name('stagiaire.attestation.download');
+// });

@@ -183,7 +183,6 @@
             @if($stagiaire->qrcode)
                 <div class="qr-code">
                     <img src="data:image/png;base64,{{ base64_encode($stagiaire->qrcode) }}" alt="QR Code">
-                    <p class="text-xs mt-2">Scan to verify authenticity</p>
                 </div>
             @endif
         </div>
