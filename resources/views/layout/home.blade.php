@@ -55,25 +55,38 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 features-grid">
-                <div class="glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInLeft">
-                    <div class="text-blue-900 dark:text-blue-400 text-xl font-semibold mb-4">Formation</div>
-                    <p class="text-gray-600 dark:text-gray-300">
-                        Des programmes d'études innovants adaptés aux besoins du marché du travail.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service -->
+                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInLeft">
+                    <div class="text-blue-900 text-xl font-semibold mb-4">Services</div>
+                    <p class="text-gray-600">
+                        <ul class="list-disc list-inside">
+                            <li>Développement web</li>
+                            <li>Développement mobile</li>
+                            <li>Référencement web</li>
+                            <li>Création vidéo motion design</li>
                     </p>
                 </div>
 
-                <div class="glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInUp">
-                    <div class="text-orange-600 dark:text-orange-400 text-xl font-semibold mb-4">Recherche</div>
-                    <p class="text-gray-600 dark:text-gray-300">
-                        Des laboratoires de pointe pour la recherche et l'innovation.
+                <!-- Diplome et formation -->
+                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInUp">
+                    <div class="text-orange-600 text-xl font-semibold mb-4">Diplôme et Formations</div>
+                    <p class="text-gray-600">
+                        Notre établissement propose une gamme complète de formations, du Qualification au Master, 
+                        en passant par le Technicien Supérieur et la Licence Professionnelle, ainsi que des programmes 
+                        de formation continue adaptés aux besoins du marché.
                     </p>
                 </div>
 
-                <div class="glass-effect p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInRight">
-                    <div class="text-blue-900 dark:text-blue-400 text-xl font-semibold mb-4">International</div>
-                    <p class="text-gray-600 dark:text-gray-300">
-                        Des partenariats avec des universités du monde entier.
+                <!-- Langues -->
+                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInRight">
+                    <div class="text-blue-900 text-xl font-semibold mb-4">Langues</div>
+                    <p class="text-gray-600">
+                        <ul class="list-disc list-inside">
+                            <li>Anglais</li>
+                            <li>Français</li>
+                            <li>Allemand</li>
+                        </ul>
                     </p>
                 </div>
             </div>
@@ -146,18 +159,22 @@
             <h2 class="text-3xl font-bold text-blue-900 dark:text-blue-400 mb-8 animate__animated animate__fadeInUp">
                 Contactez-nous
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-effect p-6 rounded-xl">
-                    <div class="text-orange-600 dark:text-orange-400 font-semibold">Adresse</div>
-                    <p class="text-gray-600 dark:text-gray-300">123 Avenue Mohammed V, Casablanca</p>
+            <div class="flex justify-center space-x-8">
+                <div class="text-orange-600">
+                    <div class="font-semibold">Adresse</div>
+                    <p>22, Rue Mohammed Hayani V.N Fés 4éme Etage Imm Hazzaz.</p>
                 </div>
                 <div class="glass-effect p-6 rounded-xl">
                     <div class="text-blue-900 dark:text-blue-400 font-semibold">Email</div>
                     <p class="text-gray-600 dark:text-gray-300">contact@epg.ma</p>
                 </div>
-                <div class="glass-effect p-6 rounded-xl">
-                    <div class="text-orange-600 dark:text-orange-400 font-semibold">Téléphone</div>
-                    <p class="text-gray-600 dark:text-gray-300">+212 5XX-XXXXXX</p>
+                <div class="text-orange-600">
+                    <div class="font-semibold">Fixe</div>
+                    <p>+212 535-621-865</p>
+                </div>
+                <div class="text-orange-600">
+                    <div class="font-semibold">Téléphone</div>
+                    <p>+212 619-086-666</p>
                 </div>
             </div>
         </div>

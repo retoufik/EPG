@@ -17,7 +17,7 @@
             font-family: 'DejaVu Sans';
             font-style: normal;
             font-weight: normal;
-            src: url('{{ asset('fonts/DejaVuSans.ttf') }}') format('truetype');
+            src: url("{{ public_path('fonts/DejaVuSans.ttf') }}") format('truetype');
         }
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -39,14 +39,14 @@
                 display: none !important;
             }
             
-            .min-h-[29.7cm] {
+            .min-h-custom {
                 border: none !important;
             }
         }
     </style>
 </head>
 <body class="bg-white">
-    <div class="min-h-[29.7cm] max-w-4xl mx-auto p-8 border-[3px] border-blue-900">
+    <div class="min-h-custom max-w-4xl mx-auto p-8 border-[3px] border-blue-900">
         <div class="flex justify-between items-center mb-8">
             <img src="{{asset('logo.png')}}" alt="Logo" class="w-32 h-32">
             <div class="text-center">
@@ -97,13 +97,8 @@
                 <p class="mb-8 text-blue-900">Le Directeur</p>
                 <p class="border-t-2 border-blue-900 pt-6 w-48 mx-auto font-bold">ALAE EDDINE LAZRAK</p>
             </div>
-            
-            <div class="text-center w-1/3">
-                <p class="mb-8 text-blue-900">Signature</p>
-                <p class="border-t-2 border-blue-900 pt-6 w-48 mx-auto font-bold"></p>
-            </div>
         </div>
-        <br><br><br>
+        <br>
         <div class="mt-8 text-center border-t-2 border-blue-900 pt-4">
             @php
                 try {
@@ -169,7 +164,7 @@
         .footer {
             display: none !important;
         }
-        .min-h-[29.7cm] {
+        .min-h-custom {
             border: none !important;
             padding: 0 !important;
         }
