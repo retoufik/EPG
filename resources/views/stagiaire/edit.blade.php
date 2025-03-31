@@ -208,7 +208,7 @@
                     @if($stagiaire->path)
                         <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
                             <span class="text-sm text-blue-700 dark:text-blue-300">Fichier actuel :</span>
-                            <a href="{{ asset('storage/'.$stagiaire->path) }}" target="_blank" 
+                            <a href="{{ Storage::url($stagiaire->path) }}" target="_blank" 
                                class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 ml-2 break-all">
                                 {{ basename($stagiaire->path) }}
                             </a>
@@ -227,6 +227,39 @@
                     @error('path')
                         <p class="mt-1 text-sm text-red-600">{{ $errors->first('path') }}</p>
                     @enderror
+                </div>
+                <div class="col-span-full mt-6">
+                    <label class="block text-sm font-medium text-blue-700 dark:text-blue-300 mb-4">
+                        Documents supplémentaires
+                    </label>
+                    <div class="space-y-4 mb-6">
+                        @foreach($stagiaire->documents as $document)
+                            <div class="document-existing-group flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-700 dark:text-gray-300">{{ $document->document_name }}</span>
+                                    <a href="{{ Storage::url($document) }}" target="_blank" 
+                                       class="ml-2 text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                                        (Télécharger)
+                                    </a>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" 
+                                           name="delete_documents[]" 
+                                           value="{{ $document->id }}"
+                                           class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 dark:border-gray-600">
+                                    <label class="ml-2 text-sm text-red-600 dark:text-red-400 cursor-pointer">Supprimer</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                
+                    <div id="documents-container" class="space-y-4">
+                    </div>
+                
+                    <button type="button" id="add-document" 
+                            class="mt-4 text-sm bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        + Ajouter un document
+                    </button>
                 </div>
             </div>
 
@@ -252,4 +285,43 @@
         @endauth
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let docIndex = 0;
+    const container = document.getElementById('documents-container');
+    const addButton = document.getElementById('add-document');
+
+    addButton.addEventListener('click', function() {
+        const newGroup = document.createElement('div');
+        newGroup.className = 'document-group flex items-center gap-4';
+        newGroup.innerHTML = `
+            <div class="flex-1 flex gap-4">
+                <input type="text" 
+                    name="new_documents[${docIndex}][name]" 
+                    placeholder="Nom du document"
+                    class="flex-1 p-2 border border-blue-300 dark:border-blue-700 dark:bg-gray-700 rounded-lg text-sm">
+
+                <input type="file" 
+                    name="new_documents[${docIndex}][file]" 
+                    class="flex-1 text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-800">
+
+                <button type="button" 
+                        class="remove-document text-red-500 hover:text-red-700 px-2">
+                    ×
+                </button>
+            </div>
+        `;
+        container.appendChild(newGroup);
+        docIndex++;
+    });
+
+    container.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-document')) {
+            e.target.closest('.document-group').remove();
+        }
+    });
+});
+</script>
 @endsection

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,7 +62,7 @@
            au {{ Carbon\Carbon::parse($stagiaire->fin)->format('d/m/Y') }}</p>
         
         <p>a effectué un stage au sein de notre établissement portant sur :</p>
-        <p><em>"{{ $stagiaire->details }}"</em></p>
+        <p><em>"{{ $stagiaire->type_stage->type }}"</em></p>
     </div>
 
     <div class="signature">
@@ -69,14 +70,10 @@
             <p>Le Directeur</p>
             <p>ALAE EDDINE LAZRAK</p>
         </div>
-        <div>
-            <p>Signature</p>
-            <p>_____________</p>
-        </div>
     </div>
 
     <div class="qr-code">
-        {!! $qrcode !!}
+        <centre>{!! $qrcode !!} </centre>
     </div>
 </body>
 </html>

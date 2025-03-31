@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title','List des Stagiaires')
 @section('content')
 <div class="mx-auto p-4 bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
     @auth

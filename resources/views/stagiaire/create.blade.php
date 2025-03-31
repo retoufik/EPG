@@ -182,6 +182,27 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $errors->first('path') }}</p>
                             @enderror
                         </div>
+                        <div class="mt-6">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                                Documents supplémentaires (optionnels)
+                            </label>
+                            <div id="documents-container">
+                                <div class="document-group mb-4">
+                                    <div class="flex gap-4">
+                                        <input type="text" name="documents[0][name]" 
+                                            placeholder="Nom du document (optionnel)"
+                                            class="flex-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                        <input type="file" name="documents[0][file]" 
+                                            class="flex-1 text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 dark:file:bg-orange-900 dark:file:text-orange-200 dark:hover:file:bg-orange-800">
+                                        <button type="button" class="remove-document text-red-500 hover:text-red-700">×</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="add-document" 
+                                    class="mt-2 text-sm bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-md">
+                                + Ajouter un document
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -207,5 +228,34 @@
         </div>
         @endauth
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let docIndex = 1;
+            const container = document.getElementById('documents-container');
+        
+            document.getElementById('add-document').addEventListener('click', function() {
+                const newGroup = document.createElement('div');
+                newGroup.className = 'document-group mb-4';
+                newGroup.innerHTML = `
+                    <div class="flex gap-4">
+                        <input type="text" name="documents[${docIndex}][name]" 
+                            placeholder="Nom du document (optionnel)"
+                            class="flex-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <input type="file" name="documents[${docIndex}][file]" 
+                            class="flex-1 text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 dark:file:bg-orange-900 dark:file:text-orange-200 dark:hover:file:bg-orange-800">
+                        <button type="button" class="remove-document text-red-500 hover:text-red-700">×</button>
+                    </div>
+                `;
+                container.appendChild(newGroup);
+                docIndex++;
+            });
+        
+            container.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-document')) {
+                    e.target.closest('.document-group').remove();
+                }
+            });
+        });
+        </script>
 </div>
 @endsection

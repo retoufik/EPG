@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EPG - @yield("title")</title>
     <link rel="icon" href="{{ asset('images.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -153,14 +154,9 @@
     <nav class="bg-orange-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex items-center md:hidden">
-                    <button id="mobile-menu-button" class="text-white hover:text-blue-100 focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <img src="{{ asset('logo.png') }}" alt="Logo" class="h-8 w-auto">
+                        <img src="{{ asset('images.jpg') }}" alt="Logo" style="border-radius: 50%" class="h-8 w-auto">
                     </div>
                     <div class="hidden md:block ml-10">
                         <div class="flex space-x-4">
@@ -168,13 +164,14 @@
                                 <i class="fas fa-home mr-2"></i>Accueil
                             </a>
                             <a href="{{ route('stagiaire.index') }}" 
-                               class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-users mr-2"></i>Liste des stagiaires
                             </a>
                             <a href="{{ route('stagiaire.create') }}" 
-                               class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-plus-circle mr-2"></i>Ajouter un stagiaire
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -249,7 +246,6 @@
             </div>
         </div>
     </main>
-
     <script>
         const darkModeToggle = document.getElementById('darkModeToggle');
         
@@ -283,5 +279,6 @@
         const isDark = localStorage.getItem('darkMode') === 'true';
         updateDarkMode(isDark);
     </script>
+    @stack('scripts')
 </body>
 </html>

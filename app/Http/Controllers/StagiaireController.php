@@ -60,21 +60,38 @@ class StagiaireController extends Controller
             "fin" => "required|date|after:debut",
             "details" => "nullable|string",
             "path" => "required|file|max:2048",
+            'documents.*.name' => 'required|string|max:255',
+            'documents.*.file' => 'nullable|file|max:2048',
         ]);
+
+        $stagiaire = Stagiaire::create($validated);
 
         if ($request->hasFile('path')) {
             $path = $request->file('path')->store('stagiaires', 'local');
-            $validated['path'] = $path;
+            $stagiaire->update(['path' => $path]);
         }
 
-        Stagiaire::create($validated);
+        
+        if ($request->has('documents')) {
+            foreach ($request->documents as $document) {
+                if (!empty($document['file'])) {
+                    $path = $document['file']->store('documents', 'local');
+                    $stagiaire->documents()->create([
+                        'document_name' => $document['name'] ?? $document['file']->getClientOriginalName(),
+                        'file_path' => $path
+                    ]);
+                }
+            }
+        }
+    
         return redirect()->route("stagiaire.index")->with("success", "Stagiaire ajouté avec succès");
     }
 
     public function show(Stagiaire $stagiaire)
     {
+        $type=TypeStage::find($stagiaire->type_stage_id);
         $stagiaire->load('documents');
-        return view('stagiaire.pdf', compact('stagiaire'));
+        return view('stagiaire.pdf', compact('stagiaire','type'));
     }
 
     public function edit(Stagiaire $stagiaire)
@@ -94,7 +111,11 @@ class StagiaireController extends Controller
             "type_stage_id" => "required",
             "debut" => "required|date",
             "fin" => "required|date|after:debut",
-            "details" => "nullable|string"
+            "details" => "nullable|string",
+            'delete_documents' => 'nullable|array',
+            'delete_documents.*' => 'exists:documents,id',
+            'new_documents.*.name' => 'nullable|string|max:255',
+            'new_documents.*.file' => 'nullable|file|max:2048',
         ]);
 
         if ($request->hasFile('path')) {
@@ -104,13 +125,35 @@ class StagiaireController extends Controller
             $path = $request->file('path')->store('stagiaires', 'local');
             $validated['path'] = $path;
         }
+
+        if ($request->has('delete_documents')) {
+            foreach ($request->delete_documents as $documentId) {
+                $document = Document::find($documentId);
+                if ($document && $document->file_path) {
+                    Storage::disk('local')->delete($document->file_path);
+                    $document->delete();
+                }
+            }
+        }
+        if ($request->has('new_documents')) {
+            foreach ($request->new_documents as $document) {
+                if (!empty($document['file'])) {
+                    $path = $document['file']->store('documents', 'local');
+                    $stagiaire->documents()->create([
+                        'document_name' => $document['name'] ?? $document['file']->getClientOriginalName(),
+                        'file_path' => $path
+                    ]);
+                }
+            }
+        }
+        
         if($request->has("remove_file")){
             Storage::disk('local')->delete($stagiaire->path);
             $validated['path'] = null;
         }
         
-        if($request->has("download_file")){
-            return response()->download(storage_path("app/".$stagiaire->path));
+        if($request->has("download_file")) {
+            return Storage::disk('local')->download($stagiaire->path);
         }
 
         $stagiaire->update($validated);

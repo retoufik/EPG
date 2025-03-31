@@ -6,6 +6,42 @@
     <title>École Polytechnique des Génies</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -38,8 +74,26 @@
             }
         }
     </style>
+    <script>
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-200">
+    <div class="fixed top-4 right-4 z-50">
+        <button id="darkModeToggle" 
+                class="glass-effect p-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+            <svg id="lightIcon" class="w-6 h-6 text-orange-500 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="darkIcon" class="w-6 h-6 text-blue-900 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </div>
+
     <div class="min-h-screen">
         <div class="relative overflow-hidden hero-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -56,11 +110,10 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Service -->
-                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInLeft">
-                    <div class="text-blue-900 text-xl font-semibold mb-4">Services</div>
+                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInLeft dark:bg-gray-900">
+                    <div class="text-blue-900 text-xl font-semibold mb-4 dark:text-blue-400">Services</div>
                     <p class="text-gray-600">
-                        <ul class="list-disc list-inside">
+                        <ul class="list-disc list-inside dark:text-white">
                             <li>Développement web</li>
                             <li>Développement mobile</li>
                             <li>Référencement web</li>
@@ -68,21 +121,19 @@
                     </p>
                 </div>
 
-                <!-- Diplome et formation -->
-                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInUp">
+                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInUp dark:bg-gray-900">
                     <div class="text-orange-600 text-xl font-semibold mb-4">Diplôme et Formations</div>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-white">
                         Notre établissement propose une gamme complète de formations, du Qualification au Master, 
                         en passant par le Technicien Supérieur et la Licence Professionnelle, ainsi que des programmes 
                         de formation continue adaptés aux besoins du marché.
                     </p>
                 </div>
 
-                <!-- Langues -->
-                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInRight">
-                    <div class="text-blue-900 text-xl font-semibold mb-4">Langues</div>
+                <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 animate__animated animate__fadeInRight dark:bg-gray-900">
+                    <div class="text-blue-900 text-xl font-semibold mb-4 dark:text-blue-400">Langues</div>
                     <p class="text-gray-600">
-                        <ul class="list-disc list-inside">
+                        <ul class="list-disc list-inside dark:text-white">
                             <li>Anglais</li>
                             <li>Français</li>
                             <li>Allemand</li>
@@ -179,5 +230,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+            }
+        });
+    </script>
 </body>
 </html>

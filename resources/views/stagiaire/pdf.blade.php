@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Attestation de stage - {{$stagiaire->prenom}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -46,6 +47,13 @@
     </style>
 </head>
 <body class="bg-white">
+    <div class="no-print mt-4 mb-4 text-center">
+        <a href="{{ route('stagiaire.index') }}" 
+           class="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition duration-300 inline-block">
+            <i class="fas fa-download mr-2"></i>
+            Retour a acceuil
+        </a>
+    </div>
     <div class="min-h-custom max-w-4xl mx-auto p-8 border-[3px] border-blue-900">
         <div class="flex justify-between items-center mb-8">
             <img src="{{asset('logo.png')}}" alt="Logo" class="w-32 h-32">
@@ -79,7 +87,7 @@
             </div>
 
             <p class="mb-4">a effectué un stage au sein de notre établissement dans le cadre de son projet de fin d'études portant sur :</p>
-            <p class="text-orange-600 font-semibold italic">"{{ $stagiaire->details ?? '[Sujet du projet]' }}"</p>
+            <p class="text-orange-600 font-semibold italic">"{{ $type->type ?? '[Sujet du projet]' }}"</p>
         </div>
 
         <p class="mb-8 text-lg">Par la présente, nous attestons que 
