@@ -8,17 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 class Stagiaire extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'prenom',
+        'nom',
+        'CIN',
+        'genre',
+        'email',
+        'tel',
+        'debut',
+        'fin',
+        'details',
+        'path',
+        'date_naissance',
+        'type_stage_id'
+    ];
     protected $casts = [
         'debut' => 'datetime',
-        'fin' => 'datetime'
+        'fin' => 'datetime',
+        'date_naissance' => 'datetime'
     ];
     public function documents()
     {
         return $this->hasMany(Document::class);
     }
-    public function type_stage()
+    public function typeStage()
     {
-        return $this->belongsTo(TypeStage::class);
+        return $this->belongsTo(TypeStage::class, 'type_stage_id');
     }
 }

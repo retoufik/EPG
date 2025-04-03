@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EPG - @yield("title")</title>
     <link rel="icon" href="{{ asset('images.jpg') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -163,6 +165,9 @@
                             <a href="{{ route('home') }}" class="text-white hover:text-blue-100 transition-colors px-3 py-2 rounded-md text-sm font-medium">
                                 <i class="fas fa-home mr-2"></i>Accueil
                             </a>
+                            <a href="{{ route('dashboard') }}" class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                <i class="fas fa-chart-line mr-2"></i>Dashboard
+                            </a>
                             <a href="{{ route('stagiaire.index') }}" 
                                 class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-users mr-2"></i>Liste des stagiaires
@@ -171,7 +176,14 @@
                                 class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-plus-circle mr-2"></i>Ajouter un stagiaire
                             </a>
-                            
+                            <a href="{{ route('profile.edit') }}" 
+                                class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="{{ route('import.index') }}" 
+                                class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                <i class="fas fa-file-import mr-2"></i>Import Data
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -198,11 +210,20 @@
                 <a href="{{ route('home') }}" class="text-white text-xl hover:text-blue-100 transition-colors">
                     <i class="fas fa-home mr-2"></i>Accueil
                 </a>
+                <a href="{{ route('dashboard') }}" class="text-white text-xl hover:text-blue-100 transition-colors">
+                    <i class="fas fa-chart-line mr-2"></i>Dashboard
+                </a>
                 <a href="{{ route('stagiaire.index') }}" class="text-white text-xl hover:text-blue-100 transition-colors">
                     <i class="fas fa-users mr-2"></i>Liste des stagiaires
                 </a>
                 <a href="{{ route('stagiaire.create') }}" class="text-white text-xl hover:text-blue-100 transition-colors">
                     <i class="fas fa-plus-circle mr-2"></i>Ajouter un stagiaire
+                </a>
+                <a href="{{ route('profile.edit') }}" class="text-white text-xl hover:text-blue-100 transition-colors">
+                    <i class="fas fa-user mr-2"></i>Profile
+                </a>
+                <a href="{{ route('import.index') }}" class="text-white text-xl hover:text-blue-100 transition-colors">
+                    <i class="fas fa-file-import mr-2"></i>Import Data
                 </a>
                 @auth
                 <div class="mt-4">
@@ -242,6 +263,21 @@
                 <h1 class="text-3xl font-bold text-orange-700 dark:text-orange-500 mb-6 border-b-2 border-blue-500 pb-2">
                     @yield('title', 'Gestion des stagiaires')
                 </h1>
+                @if (session('status'))
+                        <div class="mb-4 p-4 bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-200 rounded-lg">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    
+                    @if ($errors->any())
+                        <div class="mb-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded-lg">
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 @yield('content')
             </div>
         </div>
@@ -279,6 +315,6 @@
         const isDark = localStorage.getItem('darkMode') === 'true';
         updateDarkMode(isDark);
     </script>
-    @stack('scripts')
+    @yield('scripts')
 </body>
 </html>

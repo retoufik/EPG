@@ -5,8 +5,13 @@ use App\Http\Controllers\StagiaireController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImportController;
 
 Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
     return view('layout.home');
 })->name('home');
 
@@ -34,13 +39,15 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])
     ->name('password.update');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function () {
-        return view('layout.home');
-    })->name('home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/dashboard', function () {
-        return view('layout.app');
-    })->name('dashboard');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('password.update');
+
+    Route::get('/import', [ImportController::class, 'index'])->name('import.index');
+    Route::post('/import/process', [ImportController::class, 'process'])->name('import.process');
+    Route::get('/export/{type}', [ImportController::class, 'export'])->name('import.export');
 
     Route::resource('stagiaire', StagiaireController::class);
     Route::get('/stagiaire/{stagiaire}/attestation/download', [StagiaireController::class, 'generatePdf'])
@@ -53,8 +60,3 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])
         ->name('documents.destroy');
 });
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/attestation/download/{stagiaire}', [StagiaireController::class, 'generatePdf'])
-//         ->name('stagiaire.attestation.download');
-// });
