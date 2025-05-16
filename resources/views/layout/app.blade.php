@@ -161,27 +161,24 @@
                         <img src="{{ asset('images.jpg') }}" alt="Logo" style="border-radius: 50%" class="h-8 w-auto">
                     </div>
                     <div class="hidden md:block ml-10">
-                        <div class="flex space-x-4">
-                            <a href="{{ route('home') }}" class="text-white hover:text-blue-100 transition-colors px-3 py-2 rounded-md text-sm font-medium">
+                        <div class="flex space-x-2">
+                            <a href="{{ route('home') }}" class="text-white hover:text-blue-100 transition-colors px-2 py-2 rounded-md text-sm font-medium">
                                 <i class="fas fa-home mr-2"></i>Accueil
                             </a>
-                            <a href="{{ route('dashboard') }}" class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                                <i class="fas fa-chart-line mr-2"></i>Dashboard
-                            </a>
                             <a href="{{ route('stagiaire.index') }}" 
-                                class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                class="text-white hover:bg-orange-700 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-users mr-2"></i>Liste des stagiaires
                             </a>
                             <a href="{{ route('stagiaire.create') }}" 
-                                class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                class="text-white bg-blue-600 hover:bg-blue-700 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-plus-circle mr-2"></i>Ajouter un stagiaire
                             </a>
                             <a href="{{ route('profile.edit') }}" 
-                                class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                class="text-white hover:bg-orange-700 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-user mr-2"></i>Profile
                             </a>
                             <a href="{{ route('import.index') }}" 
-                                class="text-white hover:bg-orange-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                                class="text-white hover:bg-orange-700 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                                 <i class="fas fa-file-import mr-2"></i>Import Data
                             </a>
                         </div>
@@ -191,7 +188,7 @@
                 @auth
                 <div class="hidden md:flex items-center space-x-4">
                     <span class="text-white">
-                        Bienvenue, {{ Auth::user()->name }}
+                        Bienvenue, {{ Auth::user()->username }}
                     </span>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

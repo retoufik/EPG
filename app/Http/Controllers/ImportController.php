@@ -54,7 +54,7 @@ class ImportController extends Controller
                 $sheet->setCellValue('C' . $row, $stagiaire->CIN);
                 $sheet->setCellValue('D' . $row, $stagiaire->email);
                 $sheet->setCellValue('E' . $row, $stagiaire->tel);
-                $sheet->setCellValue('F' . $row, $stagiaire->typeStage ? $stagiaire->typeStage->name : '');
+                $sheet->setCellValue('F' . $row, $stagiaire->typeStage ? $stagiaire->typeStage->type : '');
                 $sheet->setCellValue('G' . $row, $stagiaire->debut ? $stagiaire->debut->format('d/m/Y') : '');
                 $sheet->setCellValue('H' . $row, $stagiaire->fin ? $stagiaire->fin->format('d/m/Y') : '');
                 $sheet->setCellValue('I' . $row, $stagiaire->date_naissance ? $stagiaire->date_naissance->format('d/m/Y') : '');

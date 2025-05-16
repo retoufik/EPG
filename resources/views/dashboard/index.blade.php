@@ -1,13 +1,10 @@
 @extends('layout.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Tableau de Bord des Stagiaires')
 
 @section('content')
 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
     <div class="p-6">
-        <h1 class="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-6 border-b-2 border-blue-500 pb-2">
-            Tableau de Bord des Stagiaires
-        </h1>
 
         <!-- Statistics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

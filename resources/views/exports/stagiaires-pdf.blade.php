@@ -5,30 +5,30 @@
     <title>Liste des Stagiaires</title>
     <style>
         body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
+            font-family: 'DejaVu Sans', sans-serif;
+            font-size: 10px;
+            width: 100%;
         }
         .header {
             text-align: center;
             color: #f97316;
-            margin-bottom: 20px;
+            margin-bottom: 2px;
+            margin-top: 2px;
         }
         table {
-            width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 2px;
+            width: 100%;
         }
         th {
             background-color: #f97316;
             color: white;
-            padding: 8px;
+            padding: 2px;
             text-align: left;
-            font-size: 11px;
         }
         td {
-            padding: 6px;
+            padding: 2px;
             border-bottom: 1px solid #ddd;
-            font-size: 10px;
         }
         tr:nth-child(even) {
             background-color: #f9fafb;
@@ -54,7 +54,6 @@
                 <th>Date de Fin</th>
                 <th>Date de Naissance</th>
                 <th>Genre</th>
-                <th>Détails</th>
             </tr>
         </thead>
         <tbody>
@@ -70,7 +69,6 @@
                 <td>{{ $stagiaire->fin ? $stagiaire->fin->format('d/m/Y') : '-' }}</td>
                 <td>{{ $stagiaire->date_naissance ? $stagiaire->date_naissance->format('d/m/Y') : '-' }}</td>
                 <td>{{ $stagiaire->genre }}</td>
-                <td>{{ $stagiaire->details }}</td>
             </tr>
             @endforeach
         </tbody>

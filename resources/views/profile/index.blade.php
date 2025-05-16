@@ -5,9 +5,7 @@
 @section('content')
 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
     <div class="p-6">
-        <h1 class="text-3xl font-bold text-orange-600 dark:text-orange-500 mb-6 border-b-2 border-blue-500 pb-2">
-            Edit Profile
-        </h1>
+        
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2">
@@ -18,7 +16,7 @@
                     <div class="mb-6">
                         <div class="flex items-center">
                             @if(auth()->user()->avatar)
-                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover">
+                                <img src="{{ asset('../storage/app/public/avatars/'.auth()->user()->avatar) }}" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover">
                             @else
                                 <div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                                     <i class='bx bxs-user text-4xl text-gray-400'></i>
